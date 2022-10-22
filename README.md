@@ -1,2 +1,2 @@
-# jogo
+# Jogo
 Em desenvolvimento.
