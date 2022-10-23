@@ -22,8 +22,8 @@ function scr_personagem_andando(){
 	hveloc = lengthdir_x(veloc, veloc_dir);
 	vveloc = lengthdir_y(veloc, veloc_dir);
 
-	if place_meeting(x + hveloc, y, obj_parede) {
-		while !place_meeting(x + sign(hveloc), y, obj_parede) {
+	if place_meeting(x + hveloc, y, obj_arvore) {
+		while !place_meeting(x + sign(hveloc), y, obj_arvore) {
 			x += sign(hveloc);
 		};
 	
@@ -32,8 +32,8 @@ function scr_personagem_andando(){
 
 	x += hveloc;
 
-	if place_meeting(x, y + vveloc, obj_parede) {
-		while !place_meeting(x, y + sign(vveloc), obj_parede) {
+	if place_meeting(x, y + vveloc, obj_arvore) {
+		while !place_meeting(x, y + sign(vveloc), obj_arvore) {
 			y += sign(vveloc);
 		};
 	
@@ -78,7 +78,7 @@ function scr_personagem_andando(){
 	}
 	
 	if estamina >= 10 {
-		if mouse_check_button_pressed(mb_right) {
+		if mouse_check_button_pressed(mb_right) or keyboard_check(vk_shift) {
 			estamina -= 10;
 			alarm[1] = 180;
 		
