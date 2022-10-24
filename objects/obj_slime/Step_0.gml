@@ -1,5 +1,9 @@
 /// @description Insert description here
 
-script_execute(estado);
+estado();
 
 depth = -y;
+
+if vida <= 0 {
+	instance_destroy();
+}

@@ -1,6 +1,7 @@
 /// @description Insert description here
 randomize();
 
+// Movimentação
 estado = scr_slime_escolher_estado;
 prox_estado = 0;
 
@@ -16,3 +17,9 @@ alarm[0] = 1;
 
 dist_aggro	  = 50;
 dist_desaggro = 100;
+
+// Combate
+vida = 5;
+empurrar_dir = 0;
+empurrar_veloc = 0;
+hit = false;

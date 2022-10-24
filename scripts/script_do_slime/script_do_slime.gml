@@ -29,7 +29,7 @@ function scr_slime_checar_personagem() {
 	}
 }
 
-function scr_slime_escolher_estado(){
+function scr_slime_escolher_estado() {
 	scr_slime_checar_personagem();
 	
 	prox_estado = choose(scr_slime_andando, scr_slime_parado);
@@ -83,7 +83,16 @@ function scr_slime_perseguindo() {
 	scr_slime_colisao();
 	
 	if distance_to_object(obj_personagem) >= dist_desaggro {
-		estado = scr_slime_escolher_estado();
+		estado = scr_slime_escolher_estado;
 		alarm[0] = irandom_range(120, 240);
 	}
+}
+	
+function scr_slime_hit() {
+	empurrar_veloc = lerp(empurrar_veloc, 0, 0.2);
+	
+	hveloc = lengthdir_x(empurrar_veloc, empurrar_dir);
+	vveloc = lengthdir_y(empurrar_veloc, empurrar_dir);
+	
+	scr_slime_colisao();
 }

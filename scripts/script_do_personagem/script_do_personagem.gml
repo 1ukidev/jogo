@@ -1,7 +1,29 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
-function scr_personagem_andando(){
+function scr_personagem_colisao() {
+	if place_meeting(x + hveloc, y, obj_arvore) {
+		while !place_meeting(x + sign(hveloc), y, obj_arvore) {
+			x += sign(hveloc);
+		};
+	
+		hveloc = 0;
+	}
+
+	x += hveloc;
+
+	if place_meeting(x, y + vveloc, obj_arvore) {
+		while !place_meeting(x, y + sign(vveloc), obj_arvore) {
+			y += sign(vveloc);
+		};
+	
+		vveloc = 0;
+	}
+
+	y += vveloc;
+}
+
+function scr_personagem_andando() {
 	// Movimentação
 	direita = keyboard_check(ord("D"));
 	cima = keyboard_check(ord("W"));
@@ -22,25 +44,7 @@ function scr_personagem_andando(){
 	hveloc = lengthdir_x(veloc, veloc_dir);
 	vveloc = lengthdir_y(veloc, veloc_dir);
 
-	if place_meeting(x + hveloc, y, obj_arvore) {
-		while !place_meeting(x + sign(hveloc), y, obj_arvore) {
-			x += sign(hveloc);
-		};
-	
-		hveloc = 0;
-	}
-
-	x += hveloc;
-
-	if place_meeting(x, y + vveloc, obj_arvore) {
-		while !place_meeting(x, y + sign(vveloc), obj_arvore) {
-			y += sign(vveloc);
-		};
-	
-		vveloc = 0;
-	}
-
-	y += vveloc;
+	scr_personagem_colisao();
 
 	// Mudar as sprites
 	dir = floor((point_direction(x, y, mouse_x, mouse_y) + 45) / 90);
@@ -77,6 +81,7 @@ function scr_personagem_andando(){
 		}
 	}
 	
+	#region Dash
 	if estamina >= 10 {
 		if mouse_check_button_pressed(mb_right) or keyboard_check(vk_shift) {
 			estamina -= 10;
@@ -87,15 +92,65 @@ function scr_personagem_andando(){
 			estado = scr_personagem_dash;
 		}
 	}
+	#endregion
+	
+	// Quando o personagem precisar atacar
+	if mouse_check_button_pressed(mb_left) {
+		image_index = 0;
+		
+		switch dir {
+			default:
+				sprite_index = spr_personagem_atacando_direita;
+			break;
+			case 1:
+				sprite_index = spr_personagem_atacando_cima;
+			break;
+			case 2:
+				sprite_index = spr_personagem_atacando_esquerda;
+			break;
+			case 3:
+				sprite_index = spr_personagem_atacando_baixo;
+			break;
+		}
+		
+		estado = scr_personagem_atacando;
+	}
 }
 
 function scr_personagem_dash() {
 	hveloc = lengthdir_x(dash_veloc, dash_dir);
 	vveloc = lengthdir_y(dash_veloc, dash_dir);
 	
-	x += hveloc;
-	y += vveloc;
+	scr_personagem_colisao();
 	
 	var _inst = instance_create_layer(x, y, "Instances", obj_dash);
 	_inst.sprite_index = sprite_index;
+}
+
+function scr_personagem_atacando() {
+	if image_index >= 1 {
+		if atacar == false {
+			switch dir {
+				default:
+					instance_create_layer(x + 10, y, "Instances", obj_personagem_hitbox);
+				break;
+				case 1:
+					instance_create_layer(x, y - 10, "Instances", obj_personagem_hitbox);
+				break;
+				case 2:
+					instance_create_layer(x - 10, y, "Instances", obj_personagem_hitbox);
+				break;
+				case 3:
+					instance_create_layer(x, y + 10, "Instances", obj_personagem_hitbox);
+				break;
+			}
+			
+			atacar = true;
+		}
+	}
+	
+	if fim_da_animacao() {
+		estado = scr_personagem_andando;
+		atacar = false;
+	}
 }
