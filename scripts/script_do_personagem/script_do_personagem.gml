@@ -118,6 +118,8 @@ function scr_personagem_andando() {
 }
 
 function scr_personagem_dash() {
+	tomardano = false;
+	
 	hveloc = lengthdir_x(dash_veloc, dash_dir);
 	vveloc = lengthdir_y(dash_veloc, dash_dir);
 	
@@ -152,5 +154,16 @@ function scr_personagem_atacando() {
 	if fim_da_animacao() {
 		estado = scr_personagem_andando;
 		atacar = false;
+	}
+}
+	
+function scr_personagem_hit() {
+	if alarm[2] > 0 {
+		hveloc = lengthdir_x(3, empurrar_dir);
+		vveloc = lengthdir_y(3, empurrar_dir);
+		
+		scr_personagem_colisao();
+	} else {
+		estado = scr_personagem_andando;
 	}
 }
