@@ -31,7 +31,6 @@
     {"id":{"name":"spr_personagem_hitbox","path":"sprites/spr_personagem_hitbox/spr_personagem_hitbox.yy",},"order":20,},
     {"id":{"name":"spr_personagem_sombra","path":"sprites/spr_personagem_sombra/spr_personagem_sombra.yy",},"order":10,},
     {"id":{"name":"ts_parede","path":"tilesets/ts_parede/ts_parede.yy",},"order":3,},
-    {"id":{"name":"spr_personagem_oficial","path":"sprites/spr_personagem_oficial/spr_personagem_oficial.yy",},"order":15,},
     {"id":{"name":"scr_tile_pedra","path":"sprites/scr_tile_pedra/scr_tile_pedra.yy",},"order":26,},
     {"id":{"name":"spr_personagem_correndo_baixo","path":"sprites/spr_personagem_correndo_baixo/spr_personagem_correndo_baixo.yy",},"order":14,},
     {"id":{"name":"spr_personagem_atacando_cima","path":"sprites/spr_personagem_atacando_cima/spr_personagem_atacando_cima.yy",},"order":18,},
